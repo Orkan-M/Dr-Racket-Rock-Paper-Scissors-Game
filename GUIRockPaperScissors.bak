@@ -1,0 +1,278 @@
+#lang racket/gui
+(require 2htdp/image) ;Allows the fancy text in the interaction window.
+
+
+;-------------------------------------GLOBAL VARIABLES-------------------------------------;
+
+(define gameframe (new frame% ;Function to define a frame
+                   [label "Rock Paper Scissors ~ By Orkan"] ;Name at the top of the frame
+                   [x 100]
+                   [y 100]
+                   [width 1800] ;Width of Frame
+                   [height 1000] ;Height of Frame
+                   [alignment '(center center)]
+                   [style '(no-resize-border)]
+                   [stretchable-width #t]
+                   ))
+
+(define gamepopup (new frame%
+                     [label "The Results"]
+                     [width 300] [height 50]
+                     ))
+
+;-------------------------------------GLOBAL VARIABLES-------------------------------------;
+
+(text/font "Welcome" 18 "purple"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "to" 18 "red"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "Rock" 18 "blue"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "Paper" 18 "red"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "Scissors" 18 "purple"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "Game" 18 "blue"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "Made" 18 "red"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "In" 18 "purple"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "Racket" 18 "blue"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "by" 18 "purple"
+             #f 'modern 'italic 'normal #f)
+
+(text/font "Orkan" 18 "red"
+             #f 'modern 'italic 'normal #f)
+
+;-------------------------------------LEFT PANEL W/ TEXT-----------------------------------;
+
+(define panel (new horizontal-panel% ;The panel on the left side of the line
+                   [parent gameframe]
+                   [alignment '(left top)]
+                   ))
+
+(define panel1  (new vertical-panel% ;Panel on the left
+                   [parent panel]
+                   [alignment '(left top)]
+                   [stretchable-width #f]
+                   [style '(border)]
+                   [border 10]
+                   ))
+
+(define LowerLeftPanel (new vertical-panel%
+                   (parent panel1)
+                   (alignment '(left center))
+                   [style '(border)]
+                   [border 10]
+                   ))
+
+(define EvenLowerLeftPanel (new vertical-panel%
+                   (parent panel1)
+                   [style '(border)]
+                   [border 10]
+                   (stretchable-height #f)
+                   ))
+
+(define howtoplay (new message%
+                     (parent LowerLeftPanel)
+                     (label "HOW TO PLAY:")
+                     ))
+
+(define blankspace (new message%
+                     (parent LowerLeftPanel)
+                     (label "----------------------------------------------------")
+                     ))
+
+(define playingthegame (new message%
+                     (parent LowerLeftPanel)
+                     (label "To win the game you must beat your opponent's choice.")
+                     ))
+
+
+(define playingthegame1 (new message%
+                     (parent LowerLeftPanel)
+                     (label "To make a choice, you must press a button once.")
+                     ))
+
+(define playingthegame2 (new message%
+                     (parent LowerLeftPanel)
+                     (label "Once you have both selected your choice, press CONFIRM on the right.")
+                     ))
+
+(define playingthegame3 (new message%
+                     (parent LowerLeftPanel)
+                     (label "Here are the win conditions.")
+                     ))
+
+(define blankspace1 (new message%
+                     (parent LowerLeftPanel)
+                     (label "----------------------------------------------------")
+                     ))
+
+(define wincond (new message%
+                     (parent LowerLeftPanel)
+                     (label "Rock vs Paper =  Paper Wins")
+                     ))
+
+(define wincond1 (new message%
+                     (parent LowerLeftPanel)
+                     (label "Rock vs Scissors = Rock Wins")
+                     ))
+
+
+(define wincond2 (new message%
+                     (parent LowerLeftPanel)
+                     (label "Paper vs Scissors = Scissors Wins")
+                     ))
+
+
+(define blankspace2 (new message%
+                     (parent LowerLeftPanel)
+                     (label "----------------------------------------------------")
+                     ))
+
+(define tiecond (new message%
+                     (parent LowerLeftPanel)
+                     (label "Rock vs Rock = Tie")
+                     ))
+
+(define tiecond2 (new message%
+                     (parent LowerLeftPanel)
+                     (label "Scissors vs Scissors = Tie")
+                     ))
+
+(define tiecond3 (new message%
+                     (parent LowerLeftPanel)
+                     (label "Paper vs Paper = Tie")
+                     ))
+
+(define blankspace3 (new message%
+                     (parent LowerLeftPanel)
+                     (label "----------------------------------------------------")
+                     ))
+
+(define madeby (new message%
+                     (parent EvenLowerLeftPanel)
+                     (label "Made by Orkan")
+                     ))
+
+;-------------------------------------LEFT PANEL W/ TEXT-----------------------------------;
+
+(define rightpanel (new horizontal-panel% ;Panel on the right
+                        [parent panel]
+                        [style '(border)]
+                        [border 10]
+                        ))
+
+
+(define panel2 (new vertical-panel% ;Panel on the right
+                   [parent rightpanel]
+                   [style '(border)]
+                   [border 10]
+                   ))
+
+(define canvass (instantiate canvas% ;Canvas within right panel housing image
+                    [panel2]
+                    ;(paint-callback
+                     ;(lambda (canvas dc)
+                      ; (send dc draw-bitmap image 0 0)
+                       ;))
+                    ))
+
+(define panel3 (new vertical-panel% ;Panel on the right
+                   [parent rightpanel]
+                   [style '(border)]
+                   [border 10]
+                   ))
+
+(define canvass2 (instantiate canvas% ;Canvas within right panel housing image
+                    [panel3]
+                    ;(paint-callback
+                     ;(lambda (canvas dc)
+                      ; (send dc draw-bitmap image 0 0)
+                       ;))
+                    ))
+
+(define panel4 (new horizontal-panel% ;Panel on the right
+                   [parent rightpanel]
+                   [style '(border)]
+                   [border 10]
+                   ))
+
+(new button% [parent panel4]
+     [label "CONFIRM"]
+     (callback (λ (o e) (send gameframe show #t)
+            (send gameframe show #f)
+
+                 )))
+                 
+;            (rockpaperscissorsgame p1 p2))))
+
+;(define p1 '())
+;(define p2 '())
+
+;(define rockpaperscissorsgame (λ (x y)
+;                                (cond
+;                                  ((empty? (and x y)) (send msg1 set-label "No Input for Player 1 and Player 2"))
+;                                  ((empty? x) (send msg1 set-label "No Input for Player 1, Player 2 wins"))
+;                                  ((empty? y) (send msg1 set-label "No Input for Player 2, Player 1 wins"))
+;                                 
+;                                  ((and (symbol=?(first x) 'r)
+;                                        (symbol=?(first y) 'p))
+;                                  
+;                                   (send msg1 set-label "Congratulations Player 2, you win"))
+;                                  
+;                                  ((and (symbol=? (first x) 'p)
+;                                        (symbol=? (first y) 'r))
+;                                   
+;                                   (send msg1 set-label "Congratulations Player 1, you win"))
+;                                  
+;                                  ((and (symbol=? (first x) 'p)
+;                                        (symbol=? (first y) 'p))
+;                                 
+;                                   (send msg1 set-label "Draw"))
+;                                  
+;                                  ((and (symbol=? (first x) 'r)
+;                                        (symbol=? (first y) 'r))
+;                               
+;                                   (send msg1 set-label "Draw"))
+;
+;                                  ((and (symbol=? (first x) 'r)
+;                                        (symbol=? (first y) 's))
+;                       
+;                                   (send msg1 set-label "Congratulations Player 1, wins"))
+;
+;                                  ((and (symbol=? (first x) 's)
+;                                        (symbol=? (first y) 'r))
+;                                   
+;                                   (send msg1 set-label "Congratulations Player 2, wins"))
+;
+;                                  ((and (symbol=? (first x) 's)
+;                                        (symbol=? (first y) 's))
+;                        
+;                                   (send msg1 set-label "Draw"))
+;                                  
+;                                  ((and (symbol=? (first x) 's)
+;                                        (symbol=? (first y) 'p))
+;                                 
+;                                   (send msg1 set-label "Congratulations Player 1, wins"))
+;                                  
+;                                  ((and (symbol=? (first x) 'p)
+;                                        (symbol=? (first y) 's))
+;                                  
+;                                   (send msg1 set-label "Player 2 wins"))
+;                                  (#t (send msg1 set-label "Invalid Input")))))
+
+
+(send gameframe show #t)
